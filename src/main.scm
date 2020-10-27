@@ -1,7 +1,7 @@
 ;;;;;; Simple example of using raylib in Scheme for a Mandelbrot Rendering
 
 ;;; Some constants 
-(define SCREEN-WIDTH 600)
+(define SCREEN-WIDTH 800)
 (define SCREEN-HEIGHT 600)
 (define MAX-ITER 100)      ; this used to interpolate between colors, where 100 is black
 (define RE-START -2)
@@ -50,7 +50,7 @@
                    (* (/ (exact->inexact x) SCREEN-WIDTH)
                       (- RE-END RE-START))))
              (b (+ IM-START
-                   (* (/ (exact->inexact x) SCREEN-HEIGHT)
+                   (* (/ (exact->inexact y) SCREEN-HEIGHT)
                       (- IM-END IM-START)))))
       (make-complex a b))))
 
@@ -65,6 +65,12 @@
   (lambda (screen)
     (let ((colors (map colorize* screen)))
       (map cons colors screen))))
+
+(define draw 
+  (lambda (pixel)
+    (let ((vector (map exact->inexact (cdr pixel)))
+          (color (car pixel)))
+      (draw-pixel-v vector color))))
 
 ;;; This represents the screen, each pixel is a proper list (x y)
 (define screen-map (map vector->list 
@@ -85,7 +91,8 @@
     (if (not (window-should-close))
         (begin (begin-drawing)
                (clear-background '(255 255 255 255))
-               (draw-pixel 300 300 (list 255 0 0 255))
+               (map draw (colorize screen-map))
+              ;  (draw '((255 0 0 255) 300 300))
                (end-drawing)
                (main-loop))
         (begin 
@@ -93,4 +100,3 @@
 
 (init-game)
 (main-loop)
-
