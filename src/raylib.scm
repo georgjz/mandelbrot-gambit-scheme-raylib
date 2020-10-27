@@ -231,5 +231,12 @@ c-declare-end
   (c-lambda (Vector2 Vector2 float Color)
     void "DrawLineBezier"))
 
-;;; This function will create a minimal raylib app and render the given picture
-(define render (lambda () 'implement-me))
+;; void DrawPixel(int posX, int posY, Color color);
+(define draw-pixel 
+  (c-lambda (int int Color)
+    void "DrawPixel"))
+
+;; void DrawPixelV(Vector2 position, Color color);
+(define draw-pixel-v 
+  (c-lambda (Vector2 Color)
+    void "DrawPixelV"))
