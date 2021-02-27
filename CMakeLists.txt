@@ -11,7 +11,7 @@ set( CMAKE_C_COMPILER gcc )
 set( CMAKE_CXX_COMPILER g++ )
 
 # Give the project a name
-project( functional-geometry-fish
+project( mandelbrot
     VERSION 0.1.0
     DESCRIPTION "A simple implementation of Functional Geometry, inspired by the paper of the same name by Peter Henderson" )
 
